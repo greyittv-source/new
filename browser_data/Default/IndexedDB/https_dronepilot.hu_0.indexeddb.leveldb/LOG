@@ -1,0 +1,6 @@
+2026/05/28-10:33:02.486 5804 Creating DB C:\Users\greyi\biz\greyittv\음악채널\browser_data\Default\IndexedDB\https_dronepilot.hu_0.indexeddb.leveldb since it was missing.
+2026/05/28-10:33:02.500 5804 Reusing MANIFEST C:\Users\greyi\biz\greyittv\음악채널\browser_data\Default\IndexedDB\https_dronepilot.hu_0.indexeddb.leveldb/MANIFEST-000001
+2026/05/28-10:33:02.522 2250 Level-0 table #5: started
+2026/05/28-10:33:02.527 2250 Level-0 table #5: 1304 bytes OK
+2026/05/28-10:33:02.529 2250 Delete type=0 #3
+2026/05/28-10:33:02.530 2250 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)

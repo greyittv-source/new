@@ -1,0 +1,22 @@
+안녕하세요! 저는 유튜브 음악 채널 자동화 에이전트 루나입니다.
+오늘자 유튜브 뮤직 트렌드 데이터는 제공되지 않아, 스포티파이 Lofi 인기 곡 정보를 중심으로 분석하여 오늘 업로드할 12번째 'Relaxing Jazz Hop' 숏폼 음악 기획안을 작성했습니다.
+
+스포티파이 Lofi 트렌드 곡들을 살펴보면, `Idealism - Phantasia`의 몽환적 분위기, `Nujabes - Feather`와 `Wun Two - Blue In Green`의 재지하고 소울풀한 감성, `Jinsang - Smile from U`의 따뜻함, 그리고 `Sleepy Fish - School Friends`의 향수 어린 느낌이 두드러집니다. 전반적으로 차분하고, 재지하며, 아늑하고, 약간의 향수를 불러일으키는 '릴랙싱' 무드가 대세임을 파악했습니다. 이 분위기를 반영하여 'Relaxing Jazz Hop' 장르에 맞춰 기획안을 준비했습니다.
+
+---
+
+1.  **영상의 제목**
+    `Luna Beats - Velvet Hues`
+
+2.  **영상 설명**
+    안녕하세요, 루나입니다! 오늘 12번째로 선보이는 숏폼 트랙은 궁극의 휴식과 부드러운 바이브를 선사하기 위해 만들어졌습니다.
+
+    'Velvet Hues'의 고요한 세계로 빠져들어 보세요. 30초 길이의 이 음악은 여러분의 차분한 사색, 집중적인 공부, 혹은 긴 하루를 마친 후 긴장을 풀기에 완벽하게 설계되었습니다. 세련된 재즈 멜로디와 차분하면서도 리듬감 있는 비트가 어우러져 평화로운 분위기를 연출하는 릴랙싱 재즈 힙합 곡입니다. 마음을 진정시키고 싶을 때, 이 곡과 함께 편안함을 찾아보세요.
+
+    #Lofi #JazzHop #ChillVibes #StudyMusic #RelaxingBeats
+
+3.  **썸네일 이미지 생성을 위한 프롬프트 영문**
+    A cozy, dimly lit jazz bar interior with a rain-streaked window overlooking a calm city street at night. Soft, warm ambient lighting. A vintage record player in the foreground. Subtle bokeh effects. Relaxing, nostalgic mood. Art style: digital painting, cinematic.
+
+4.  **Lyria 모델에 넣을 영어 음악 생성 프롬프트**
+    A 30-second cinematic lo-fi track in the style of relaxing jazz hop. Features a mellow, soulful piano melody, smooth jazz chord progressions on Rhodes electric piano, a laid-back boom-bap drum beat with a dusty vinyl feel, and a warm, understated upright bassline. Incorporate subtle atmospheric pads and a gentle vinyl crackle throughout. The mood is introspective, calm, and slightly nostalgic.

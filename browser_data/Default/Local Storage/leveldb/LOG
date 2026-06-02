@@ -1,0 +1,14 @@
+2026/05/28-09:56:49.923 2cb4 Creating DB C:\Users\greyi\biz\greyittv\음악채널\browser_data\Default\Local Storage\leveldb since it was missing.
+2026/05/28-09:56:49.979 2cb4 Reusing MANIFEST C:\Users\greyi\biz\greyittv\음악채널\browser_data\Default\Local Storage\leveldb/MANIFEST-000001
+2026/05/28-10:03:20.267 5b80 Level-0 table #5: started
+2026/05/28-10:03:20.278 5b80 Level-0 table #5: 95385 bytes OK
+2026/05/28-10:03:20.280 5b80 Delete type=0 #3
+2026/05/28-10:23:22.450 5b80 Level-0 table #7: started
+2026/05/28-10:23:22.469 5b80 Level-0 table #7: 937978 bytes OK
+2026/05/28-10:23:22.471 5b80 Delete type=0 #4
+2026/05/28-10:28:29.954 5b80 Level-0 table #9: started
+2026/05/28-10:28:29.963 5b80 Level-0 table #9: 52685 bytes OK
+2026/05/28-10:28:29.965 5b80 Delete type=0 #6
+2026/05/28-10:29:50.968 5b80 Level-0 table #11: started
+2026/05/28-10:29:50.978 5b80 Level-0 table #11: 81372 bytes OK
+2026/05/28-10:29:50.981 5b80 Delete type=0 #8
