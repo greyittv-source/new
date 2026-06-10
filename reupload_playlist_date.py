@@ -42,7 +42,7 @@ def generate_playlist_thumbnail():
             plan_text = f.read()
         extract_prompt = f"다음 기획안에서 썸네일 이미지 생성을 위한 영문 프롬프트(미드저니/DALL-E용 프롬프트)만 추출해서 영문으로 1문장으로만 답해줘. 부가 설명 절대 금지.\n\n{plan_text}"
         try:
-            prompt_response = client.models.generate_content(model="gemini-2.5-flash", contents=extract_prompt)
+            prompt_response = client.models.generate_content(model="gemini-1.5-flash", contents=extract_prompt)
             image_prompt = prompt_response.text.strip()
             print(f"👉 추출된 기본 프롬프트: {image_prompt}")
         except Exception:
@@ -245,7 +245,7 @@ def reupload_playlist_for_date(target_date):
         try:
             client = genai.Client()
             msg_prompt = "유튜브 음악 플레이리스트 설명란 최상단에 들어갈 시청자 소통 유도용 감성적인 인사말과 가벼운 질문(Q&A)을 2문장으로 작성해줘. 오직 2문장의 결과물 텍스트만 단일로 출력해."
-            msg_response = client.models.generate_content(model="gemini-2.5-flash", contents=msg_prompt)
+            msg_response = client.models.generate_content(model="gemini-1.5-flash", contents=msg_prompt)
             if msg_response.text:
                 community_msg = msg_response.text.strip()
         except Exception:

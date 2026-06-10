@@ -3,6 +3,7 @@ import time
 import json
 import os
 import sys
+from luna_voice import speak
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -24,6 +25,18 @@ while True:
                 
                 if msg_id and msg_id != last_msg_id:
                     last_msg_id = msg_id
+                    
+                    print(f"\n🔔 [무전 수신] 대표님: {text}")
+                    
+                    # 음성 브리핑!
+                    speak(f"대표님의 무전이 도착했습니다. {text}")
+                    
+                    # 알림 사운드 재생 시도 (윈도우 기본)
+                    try:
+                        import winsound
+                        winsound.PlaySound("SystemAsterisk", winsound.SND_ALIAS)
+                    except:
+                        pass
                     
                     # 콘솔에 출력하여 루나(AI)를 강제로 깨웁니다!
                     print(f"\n🚨 [긴급 호출] 대표님으로부터 메시지가 도착했습니다!\n<CEO_MESSAGE>\n{text}\n</CEO_MESSAGE>\n")

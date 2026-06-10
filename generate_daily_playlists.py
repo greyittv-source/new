@@ -225,11 +225,20 @@ def generate_daily_assets(client, theme, output_dir, is_debug):
                 print(f"   ✅ 생성 성공: track_{i}.mp3")
             else:
                 print(f"   ⚠️ 오디오 데이터 누락. 더미 파일로 대체합니다.")
-                if os.path.exists("dummy_audio.mp3"):
-                    shutil.copy("dummy_audio.mp3", audio_path)
-                else:
-                    with open(audio_path, "wb") as f:
-                        f.write(b'\x00' * 1000)
+                try:
+                    subprocess.run(["python", "generate_music.py", str(i)], check=True, timeout=180)
+                    if os.path.exists("clip.mp3"):
+                        os.rename("clip.mp3", audio_path)
+                except subprocess.TimeoutExpired:
+                    print(f"   [!] 음원 생성 타임아웃 (180초 초과). 다음 번에 재시도합니다.")
+                except Exception as e:
+                    print(f"   [!] 음원 생성 오류: {e}. 더미 오디오 대체 적용.")
+                if not os.path.exists(audio_path):
+                    if os.path.exists("dummy_audio.mp3"):
+                        shutil.copy("dummy_audio.mp3", audio_path)
+                    else:
+                        with open(audio_path, "wb") as f:
+                            f.write(b'\x00' * 1000)
                 audio_paths.append(audio_path)
         except Exception as e:
             print(f"   ❌ 음원 {i} 생성 에러: {e}. 더미 오디오 대체 적용.")
@@ -404,6 +413,40 @@ def pregenerate_all_playlists():
             with open(sns_text_path, "w", encoding="utf-8") as f:
                 f.write(sns_content)
             print(f"📝 SNS 복붙용 텍스트 저장 완료: {sns_text_path}")
+            
+            # 레딧 소프트 프로모션 봇 가동
+            try:
+                from reddit_bot import post_video_to_reddit
+                reddit_title = f"{theme['title']} - {theme['description'][:50]}..."
+                reddit_comment = f"Here is the full 1-hour lofi mix on YouTube: https://youtu.be/YOUR_CHANNEL_LINK\n\n#lofi #chill #study"
+                target_subs = ["LofiHipHop", "StudyMusic", "chillhop", "aiArt", "Music"]
+                target_sub = target_subs[theme['day'] % len(target_subs)]
+                
+                post_video_to_reddit(
+                    title=reddit_title,
+                    video_path=shorts_output_path,
+                    thumbnail_path=bg_image,
+                    comment_text=reddit_comment,
+                    subreddit_name=target_sub
+                )
+            except Exception as e:
+                print(f"⚠️ [레딧 업로드 스킵] {e}")
+                
+            # 인스타그램 릴스 봇 가동
+            try:
+                from insta_bot import post_reels_to_instagram
+                insta_caption = f"{theme['description']}\n\n#lofi #chill #study #GreyitTV"
+                post_reels_to_instagram(shorts_output_path, insta_caption)
+            except Exception as e:
+                print(f"⚠️ [인스타 업로드 스킵] {e}")
+                
+            # 틱톡 봇 가동
+            try:
+                from tiktok_bot import post_video_to_tiktok
+                tiktok_desc = f"{theme['description']} #lofi #chill"
+                post_video_to_tiktok(shorts_output_path, tiktok_desc)
+            except Exception as e:
+                print(f"⚠️ [틱톡 업로드 스킵] {e}")
             
         except Exception as e:
             print(f"❌ 주간 테마 쇼츠 생성 오류: {e}")

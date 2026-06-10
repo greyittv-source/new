@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+from upload_tracker import log_upload, is_duplicate as tracker_is_duplicate
 
 sys.stdout.reconfigure(encoding='utf-8')
 from googleapiclient.discovery import build
@@ -91,7 +92,7 @@ def is_already_uploaded(youtube, title):
         print(f"⚠️ 중복 조회 중 오류가 발생하여 건너뜁니다: {e}")
         return False
 
-def upload_video(youtube, title, description, tags, file_path, publish_time=None):
+def upload_video(youtube, title, description, tags, file_path, publish_time=None, content_type="longform"):
     if is_already_uploaded(youtube, title):
         print(f"\n⚠️ [업로드 건너뛰기] 동일한 제목('{title}')의 영상이 이미 유튜브 채널에 업로드되어 있어 업로드를 생략합니다.")
         return
@@ -127,12 +128,26 @@ def upload_video(youtube, title, description, tags, file_path, publish_time=None
     
     response = None
     print("⏳ 동영상을 유튜브 서버로 전송 중입니다...")
-    while response is None:
-        status, response = request.next_chunk()
-        if status:
-            print(f"진행률: {int(status.progress() * 100)}%")
+    try:
+        while response is None:
+            status, response = request.next_chunk()
+            if status:
+                print(f"진행률: {int(status.progress() * 100)}%")
+    except Exception as e:
+        log_upload(
+            platform="youtube", content_type=content_type, title=title,
+            file_path=file_path, status="failed", error_message=str(e)
+        )
+        raise
             
     video_url = f"https://studio.youtube.com/video/{response['id']}/edit"
+    
+    # 업로드 성공 기록
+    log_upload(
+        platform="youtube", content_type=content_type, title=title,
+        file_path=file_path, status="success",
+        video_id=response['id'], url=video_url
+    )
     
     if publish_time:
         print(f"✅ 성공! 비디오 업로드 완료 (정해진 시간에 '공개'되도록 예약되었습니다: {publish_time})")

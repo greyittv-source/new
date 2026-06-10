@@ -71,7 +71,7 @@ text_prompt = f"""
 """
 
 plan_response = client.models.generate_content(
-    model="gemini-2.5-flash",
+    model="gemini-1.5-flash",
     contents=text_prompt,
 )
 plan_text = plan_response.text

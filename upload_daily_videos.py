@@ -14,8 +14,9 @@ if os.path.exists(env_path):
                 os.environ["GEMINI_API_KEY"] = line.strip().split("=", 1)[1]
 
 from upload_youtube import get_authenticated_service, upload_video
+from upload_tracker import log_upload
 
-def upload_video_public(youtube, title, description, tags, file_path):
+def upload_video_public(youtube, title, description, tags, file_path, content_type="longform"):
     from googleapiclient.http import MediaFileUpload
     print(f"\n🎬 유튜브 업로드 시작...\n - 제목: {title}\n - 업로드 상태: 즉시 공개 (Public)\n - 파일: {file_path}")
     
@@ -42,13 +43,26 @@ def upload_video_public(youtube, title, description, tags, file_path):
     
     response = None
     print("⏳ 동영상을 유튜브 서버로 전송 중입니다...")
-    while response is None:
-        status, response = request.next_chunk()
-        if status:
-            print(f"진행률: {int(status.progress() * 100)}%")
+    try:
+        while response is None:
+            status, response = request.next_chunk()
+            if status:
+                print(f"진행률: {int(status.progress() * 100)}%")
+    except Exception as e:
+        log_upload(
+            platform="youtube", content_type=content_type, title=title,
+            file_path=file_path, status="failed", error_message=str(e)
+        )
+        raise
             
+    video_url = f"https://studio.youtube.com/video/{response['id']}/edit"
+    log_upload(
+        platform="youtube", content_type=content_type, title=title,
+        file_path=file_path, status="success",
+        video_id=response['id'], url=video_url
+    )
     print(f"✅ 성공! 비디오 업로드 완료 (공개 상태)")
-    print(f"🔗 확인 링크: https://studio.youtube.com/video/{response['id']}/edit")
+    print(f"🔗 확인 링크: {video_url}")
     return response['id']
 
 def run_daily_uploads():

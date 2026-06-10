@@ -31,7 +31,7 @@ def generate_thumbnail():
 {plan_text}
 """
     prompt_response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-1.5-flash",
         contents=extract_prompt
     )
     image_prompt = prompt_response.text.strip()

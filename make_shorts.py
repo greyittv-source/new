@@ -18,6 +18,9 @@ if os.path.exists(env_path):
                 os.environ["GEMINI_API_KEY"] = line.strip().split("=", 1)[1]
 
 from upload_youtube import get_authenticated_service, upload_video
+from insta_bot import post_reels_to_instagram
+from tiktok_bot import post_video_to_tiktok
+from naver_bot import post_clip_to_naver
 
 def get_ffmpeg_encoder(ffmpeg_bin):
     """NVIDIA GPU 가속(h264_nvenc) 감지"""
@@ -148,7 +151,23 @@ def make_shorts(image_path, audio_path, output_path, title, description, tags, i
                 shorts_tags = tags + ["Shorts", "Lofi", "study", "relax"]
                 
                 upload_video(youtube, shorts_title, shorts_description, shorts_tags, output_path)
-                print(f"✅ 쇼츠 자동 업로드 파이프라인 완료!")
+                print(f"✅ 유튜브 쇼츠 업로드 완료!")
+                
+            print("⏳ 인스타그램 릴스 업로드 진행 중...")
+            post_reels_to_instagram(output_path, shorts_description)
+            
+            print("⏳ 틱톡 쇼츠 업로드 진행 중...")
+            post_video_to_tiktok(output_path, shorts_description)
+
+            # 네이버 클립 자동 업로드
+            print(f"\n네이버 클립 업로드 중...")
+            try:
+                post_clip_to_naver(output_path, title, shorts_description, shorts_tags)
+                print(f"\n[네이버 클립 업로드 성공!]")
+            except Exception as e:
+                print(f"\n[네이버 클립 업로드 실패]: {e}")
+
+            print(f"✅ 모든 SNS 플랫폼(유튜브, 인스타, 틱톡, 네이버클립) 자동 업로드 파이프라인 완료!")
         else:
             print("ℹ️ [디버그 모드] 쇼츠 유튜브 업로드를 건너뜁니다.")
             
